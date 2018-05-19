@@ -3,7 +3,16 @@ package game;
 import ui.InventoryBasedScreen;
 import ui.Screen;
 
+/**
+ * The Class EatScreen.
+ */
 public class EatScreen extends InventoryBasedScreen {
+	
+	/**
+	 * Instantiates a new eat screen.
+	 *
+	 * @param player the player
+	 */
 	public EatScreen(Creature player) {
 		super(player);
 	}

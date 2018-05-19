@@ -1,9 +1,20 @@
+/*
+ * 
+ */
 package ui;
 
 import java.awt.event.KeyEvent;
 import asciiPanel.AsciiPanel;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class HelpScreen.
+ */
 public class HelpScreen implements Screen {
+	
+	/* (non-Javadoc)
+	 * @see ui.Screen#displayOutput(asciiPanel.AsciiPanel)
+	 */
 	@Override
 	public void displayOutput(AsciiPanel terminal) {
 		terminal.clear();
@@ -26,6 +37,9 @@ public class HelpScreen implements Screen {
 		terminal.writeCenter("-- press any key to continue --", 22);
 	}
 
+	/* (non-Javadoc)
+	 * @see ui.Screen#respondToUserInput(java.awt.event.KeyEvent)
+	 */
 	@Override
 	public Screen respondToUserInput(KeyEvent key) {
 		return null;

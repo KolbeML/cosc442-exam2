@@ -8,12 +8,23 @@ import asciiPanel.AsciiPanel;
 import ui.Screen;
 import ui.StartScreen;
 
+/**
+ * The Class AppletMain.
+ */
 public class AppletMain extends Applet implements KeyListener {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2560255315130084198L;
 	
+	/** The terminal. */
 	private AsciiPanel terminal;
+	
+	/** The screen. */
 	private Screen screen;
 	
+	/**
+	 * Instantiates a new applet main.
+	 */
 	public AppletMain(){
 		terminal = new AsciiPanel();
 		add(terminal);
@@ -22,6 +33,9 @@ public class AppletMain extends Applet implements KeyListener {
 		repaint();
 	}
 	
+	/**
+	 * The init - sets up the terminal
+	 */
 	@Override
 	public void init(){
 		super.init();

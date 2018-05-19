@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package ui;
 
 import java.awt.Color;
@@ -15,15 +18,36 @@ import game.Tile;
 import game.World;
 import game.WorldBuilder;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PlayScreen.
+ */
 public class PlayScreen implements Screen {
+	
+	/** The world. */
 	private World world;
+	
+	/** The player. */
 	private Creature player;
+	
+	/** The screen width. */
 	private int screenWidth;
+	
+	/** The screen height. */
 	private int screenHeight;
+	
+	/** The messages. */
 	private List<String> messages;
+	
+	/** The fov. */
 	private FieldOfView fov;
+	
+	/** The subscreen. */
 	private Screen subscreen;
 	
+	/**
+	 * Instantiates a new play screen.
+	 */
 	public PlayScreen(){
 		screenWidth = 80;
 		screenHeight = 23;
@@ -36,6 +60,11 @@ public class PlayScreen implements Screen {
 		createItems(factory);
 	}
 
+	/**
+	 * Creates the creatures.
+	 *
+	 * @param factory the factory
+	 */
 	private void createCreatures(StuffFactory factory){
 		player = factory.newPlayer(messages, fov);
 		
@@ -53,6 +82,11 @@ public class PlayScreen implements Screen {
 		}
 	}
 
+	/**
+	 * Creates the items.
+	 *
+	 * @param factory the factory
+	 */
 	private void createItems(StuffFactory factory) {
 		for (int z = 0; z < world.depth(); z++){
 			for (int i = 0; i < world.width() * world.height() / 50; i++){
@@ -74,16 +108,32 @@ public class PlayScreen implements Screen {
 		factory.newVictoryItem(world.depth() - 1);
 	}
 	
+	/**
+	 * Creates the world.
+	 */
 	private void createWorld(){
 		world = new WorldBuilder(90, 32, 5)
 					.makeCaves()
 					.build();
 	}
 	
+	/**
+	 * Gets the scroll X.
+	 *
+	 * @return the scroll X
+	 */
 	public int getScrollX() { return Math.max(0, Math.min(player.x - screenWidth / 2, world.width() - screenWidth)); }
 	
+	/**
+	 * Gets the scroll Y.
+	 *
+	 * @return the scroll Y
+	 */
 	public int getScrollY() { return Math.max(0, Math.min(player.y - screenHeight / 2, world.height() - screenHeight)); }
 	
+	/* (non-Javadoc)
+	 * @see ui.Screen#displayOutput(asciiPanel.AsciiPanel)
+	 */
 	@Override
 	public void displayOutput(AsciiPanel terminal) {
 		int left = getScrollX();
@@ -100,6 +150,11 @@ public class PlayScreen implements Screen {
 		}
 	}
 	
+	/**
+	 * Hunger.
+	 *
+	 * @return the string
+	 */
 	private String hunger(){
 		if (player.food() < player.maxFood() * 0.10) {
 			return "Starving";
@@ -114,6 +169,12 @@ public class PlayScreen implements Screen {
 		}
 	}
 
+	/**
+	 * Display messages.
+	 *
+	 * @param terminal the terminal
+	 * @param messages the messages
+	 */
 	private void displayMessages(AsciiPanel terminal, List<String> messages) {
 		int top = screenHeight - messages.size();
 		for (int i = 0; i < messages.size(); i++){
@@ -124,6 +185,13 @@ public class PlayScreen implements Screen {
 		}
 	}
 
+	/**
+	 * Display tiles.
+	 *
+	 * @param terminal the terminal
+	 * @param left the left
+	 * @param top the top
+	 */
 	private void displayTiles(AsciiPanel terminal, int left, int top) {
 		fov.update(player.x, player.y, player.z, player.visionRadius());
 		
@@ -141,6 +209,9 @@ public class PlayScreen implements Screen {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see ui.Screen#respondToUserInput(java.awt.event.KeyEvent)
+	 */
 	@Override
 	public Screen respondToUserInput(KeyEvent key) {
 		int level = player.level();
@@ -214,10 +285,20 @@ public class PlayScreen implements Screen {
 		return this;
 	}
 
+	/**
+	 * User is trying to exit.
+	 *
+	 * @return true, if successful
+	 */
 	private boolean userIsTryingToExit(){
 		return player.z == 0 && world.tile(player.x, player.y, player.z) == Tile.STAIRS_UP;
 	}
 	
+	/**
+	 * User exits.
+	 *
+	 * @return the screen
+	 */
 	private Screen userExits(){
 		for (Item item : player.inventory().getItems()){
 			if (item != null && "teddy bear".equals(item.name())) {

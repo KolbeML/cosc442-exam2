@@ -4,17 +4,33 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * The Class Point.
+ */
 public class Point {
+	
+	/** The x coordinate. */
 	public int x;
+	
+	/** The y coordinate. */
 	public int y;
+	
+	/** The z coordinate. */
 	public int z;
 	
+	/**
+	 * Instantiates a new point.
+	 *
+	 * @param x the x coordinate
+	 * @param y the y coordinate
+	 * @param z the z coordinate
+	 */
 	public Point(int x, int y, int z){
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -24,6 +40,9 @@ public class Point {
 		return prime * result + z;
 	}
 
+	/**
+	 * Compares two points.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -36,6 +55,11 @@ public class Point {
 		return x == other.x && y == other.y && z == other.z;
 	}
 
+	/**
+	 * Returns the eight tiles bordering the current tile.
+	 *
+	 * @return the list
+	 */
 	public List<Point> neighbors8(){
 		List<Point> points = new ArrayList<>();
 		
