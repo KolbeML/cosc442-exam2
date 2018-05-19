@@ -87,7 +87,7 @@ public abstract class InventoryBasedScreen implements Screen {
 	private ArrayList<String> getList() {
 		ArrayList<String> lines = new ArrayList<>();
 		Item[] inventory = player.inventory().getItems();
-
+		int j = 0;
 		for (int i = 0; i < inventory.length; i++) {
 			Item item = inventory[i];
 
@@ -95,8 +95,8 @@ public abstract class InventoryBasedScreen implements Screen {
 				continue;
 			}
 
-			String line = letters.charAt(i) + " - " + item.glyph() + " " + player.nameOf(item);
-
+			String line = letters.charAt(j) + " - " + item.glyph() + " " + player.nameOf(item);
+			j++;
 			if (item == player.weapon() || item == player.armor()) {
 				line += " (equipped)";
 			}
