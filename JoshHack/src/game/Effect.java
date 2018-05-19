@@ -18,10 +18,8 @@ public class Effect {
 	}
 	
 	public void start(Creature creature){
-		
 	}
 	
 	public void end(Creature creature){
-		
 	}
 }

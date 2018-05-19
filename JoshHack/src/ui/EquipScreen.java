@@ -4,7 +4,6 @@ import game.Creature;
 import game.Item;
 
 public class EquipScreen extends InventoryBasedScreen {
-
 	public EquipScreen(Creature player) {
 		super(player);
 	}

@@ -15,7 +15,6 @@ public class AppletMain extends Applet implements KeyListener {
 	private Screen screen;
 	
 	public AppletMain(){
-		super();
 		terminal = new AsciiPanel();
 		add(terminal);
 		screen = new StartScreen();
@@ -26,7 +25,7 @@ public class AppletMain extends Applet implements KeyListener {
 	@Override
 	public void init(){
 		super.init();
-		this.setSize(terminal.getWidth() + 20, terminal.getHeight() + 20);
+		setSize(terminal.getWidth() + 20, terminal.getHeight() + 20);
 	}
 
 	@Override

@@ -1,7 +1,6 @@
 package game;
 
 public class BatAi extends CreatureAi {
-
 	public BatAi(Creature creature) {
 		super(creature);
 	}

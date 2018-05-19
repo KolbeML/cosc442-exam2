@@ -14,12 +14,14 @@ public class ThrowAtScreen extends TargetBasedScreen {
 	}
 
 	public boolean isAcceptable(int x, int y) {
-		if (!player.canSee(x, y, player.z))
+		if (!player.canSee(x, y, player.z)) {
 			return false;
+		}
 		
 		for (Point p : new Line(player.x, player.y, x, y)){
-			if (!player.realTile(p.x, p.y, player.z).isGround())
+			if (!player.realTile(p.x, p.y, player.z).isGround()) {
 				return false;
+			}
 		}
 		
 		return true;

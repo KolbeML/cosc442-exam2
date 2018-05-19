@@ -4,7 +4,6 @@ import ui.InventoryBasedScreen;
 import ui.Screen;
 
 public class EatScreen extends InventoryBasedScreen {
-
 	public EatScreen(Creature player) {
 		super(player);
 	}

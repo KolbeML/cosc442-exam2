@@ -38,19 +38,21 @@ public class LevelUpScreen implements Screen {
 		String chars = "";
 		
 		for (int i = 0; i < options.size(); i++){
-			chars = chars + Integer.toString(i+1);
+			chars = chars + (i+1);
 		}
 		
 		int i = chars.indexOf(key.getKeyChar());
 		
-		if (i < 0)
+		if (i < 0) {
 			return this;
+		}
 		
 		controller.getLevelUpOption(options.get(i)).invoke(player);
 		
-		if (--picks < 1)
+		if (--picks < 1) {
 			return null;
-		else
+		} else {
 			return this;
+		}
 	}
 }

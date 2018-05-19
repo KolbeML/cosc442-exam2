@@ -7,7 +7,6 @@ import game.Line;
 import game.Point;
 
 public abstract class TargetBasedScreen implements Screen {
-
 	protected Creature player;
 	protected String caption;
 	private int sx;
@@ -25,8 +24,9 @@ public abstract class TargetBasedScreen implements Screen {
 	@Override
 	public void displayOutput(AsciiPanel terminal) {
 		for (Point p : new Line(sx, sy, sx + x, sy + y)){
-			if (p.x < 0 || p.x >= 80 || p.y < 0 || p.y >= 24)
+			if (p.x < 0 || p.x >= 80 || p.y < 0 || p.y >= 24) {
 				continue;
+			}
 			
 			terminal.write('*', p.x, p.y, AsciiPanel.brightMagenta);
 		}
@@ -72,7 +72,6 @@ public abstract class TargetBasedScreen implements Screen {
 	}
 
 	public void enterWorldCoordinate(int x, int y, int screenX, int screenY) {
-		
 	}
 
 	public void selectWorldCoordinate(int x, int y, int screenX, int screenY){

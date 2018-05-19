@@ -4,7 +4,6 @@ import game.Creature;
 import game.Item;
 
 public class ExamineScreen extends InventoryBasedScreen {
-
 	public ExamineScreen(Creature player) {
 		super(player);
 	}

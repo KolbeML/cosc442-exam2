@@ -11,10 +11,10 @@ public class PathFinder {
 	private HashMap<Point,Integer> totalCost;
     
     public PathFinder() {
-    	this.open = new ArrayList<Point>();
-        this.closed = new ArrayList<Point>();
-        this.parents = new HashMap<Point, Point>();
-        this.totalCost = new HashMap<Point, Integer>();
+    	this.open = new ArrayList<>();
+        this.closed = new ArrayList<>();
+        this.parents = new HashMap<>();
+        this.totalCost = new HashMap<>();
     }
     
     private int heuristicCost(Point from, Point to) {
@@ -26,8 +26,9 @@ public class PathFinder {
     }
     
     private int totalCost(Point from, Point to) {
-        if (totalCost.containsKey(from))
-        	return totalCost.get(from);
+        if (totalCost.containsKey(from)) {
+			return totalCost.get(from);
+		}
         
         int cost = costToGetTo(from) + heuristicCost(from, to);
         totalCost.put(from, cost);
@@ -47,16 +48,17 @@ public class PathFinder {
     	
         open.add(start);
         
-        for (int tries = 0; tries < maxTries && open.size() > 0; tries++){
+        for (int tries = 0; tries < maxTries && !open.isEmpty(); tries++){
             Point closest = getClosestPoint(end);
             
             open.remove(closest);
             closed.add(closest);
 
-            if (closest.equals(end))
-                return createPath(start, closest);
-            else
-                checkNeighbors(creature, end, closest);
+            if (closest.equals(end)) {
+				return createPath(start, closest);
+			} else {
+				checkNeighbors(creature, end, closest);
+			}
         }
         return null;
     }
@@ -64,8 +66,9 @@ public class PathFinder {
 	private Point getClosestPoint(Point end) {
 		Point closest = open.get(0);
 		for (Point other : open){
-		    if (totalCost(other, end) < totalCost(closest, end))
-		        closest = other;
+		    if (totalCost(other, end) < totalCost(closest, end)) {
+				closest = other;
+			}
 		}
 		return closest;
 	}
@@ -73,14 +76,16 @@ public class PathFinder {
 	private void checkNeighbors(Creature creature, Point end, Point closest) {
 		for (Point neighbor : closest.neighbors8()) {
 		    if (closed.contains(neighbor)
-		    		|| !creature.canEnter(neighbor.x, neighbor.y, creature.z)
-		    		&& !neighbor.equals(end))
-		        continue;
+		    		|| (!creature.canEnter(neighbor.x, neighbor.y, creature.z)
+		    		&& !neighbor.equals(end))) {
+				continue;
+			}
 			
-		    if (open.contains(neighbor))
+		    if (open.contains(neighbor)) {
 				reParentNeighborIfNecessary(closest, neighbor);
-		    else
-		        reParentNeighbor(closest, neighbor);
+			} else {
+				reParentNeighbor(closest, neighbor);
+			}
 		}
 	}
 
@@ -95,14 +100,15 @@ public class PathFinder {
 		reParent(neighbor, closest);
 		double reparentCost = costToGetTo(neighbor);
 		
-		if (reparentCost < currentCost)
+		if (reparentCost < currentCost) {
 			open.remove(neighbor);
-		else
+		} else {
 			reParent(neighbor, originalParent);
+		}
 	}
 
 	private ArrayList<Point> createPath(Point start, Point end) {
-		ArrayList<Point> path = new ArrayList<Point>();
+		ArrayList<Point> path = new ArrayList<>();
 
 		while (!end.equals(start)) {
 		    path.add(end);

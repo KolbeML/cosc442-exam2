@@ -9,7 +9,6 @@ import game.Item;
 import game.Spell;
 
 public class ReadSpellScreen implements Screen {
-
 	protected Creature player;
 	private String letters;
 	private Item item;
@@ -30,8 +29,9 @@ public class ReadSpellScreen implements Screen {
 		int y = 23 - lines.size();
 		int x = 4;
 
-		if (lines.size() > 0)
+		if (!lines.isEmpty()) {
 			terminal.clear(' ', x, y, 20, lines.size());
+		}
 		
 		for (String line : lines){
 			terminal.write(line, x, y++);
@@ -44,7 +44,7 @@ public class ReadSpellScreen implements Screen {
 	}
 	
 	private ArrayList<String> getList() {
-		ArrayList<String> lines = new ArrayList<String>();
+		ArrayList<String> lines = new ArrayList<>();
 		
 		for (int i = 0; i < item.writtenSpells().size(); i++){
 			Spell spell = item.writtenSpells().get(i);
@@ -73,8 +73,9 @@ public class ReadSpellScreen implements Screen {
 	}
 
 	protected Screen use(Spell spell){
-		if (spell.requiresTarget())
+		if (spell.requiresTarget()) {
 			return new CastSpellScreen(player, "", sx, sy, spell);
+		}
 		
 		player.castSpell(spell, player.x, player.y);
 		return null;

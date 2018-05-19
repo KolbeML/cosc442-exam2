@@ -39,7 +39,6 @@ public class WorldBuilder {
 	private WorldBuilder smooth(int times) {
 		Tile[][][] tiles2 = new Tile[width][height][depth];
 		for (int time = 0; time < times; time++) {
-
 			for (int x = 0; x < width; x++) {
 				for (int y = 0; y < height; y++) {
 					for (int z = 0; z < depth; z++) {
@@ -49,13 +48,15 @@ public class WorldBuilder {
 						for (int ox = -1; ox < 2; ox++) {
 							for (int oy = -1; oy < 2; oy++) {
 								if (x + ox < 0 || x + ox >= width || y + oy < 0
-										|| y + oy >= height)
+										|| y + oy >= height) {
 									continue;
+								}
 	
-								if (tiles[x + ox][y + oy][z] == Tile.FLOOR)
+								if (tiles[x + ox][y + oy][z] == Tile.FLOOR) {
 									floors++;
-								else
+								} else {
 									rocks++;
+								}
 							}
 						}
 						tiles2[x][y][z] = floors >= rocks ? Tile.FLOOR : Tile.WALL;
@@ -76,8 +77,9 @@ public class WorldBuilder {
 					if (tiles[x][y][z] != Tile.WALL && regions[x][y][z] == 0){
 						int size = fillRegion(nextRegion++, x, y, z);
 						
-						if (size < 25)
+						if (size < 25) {
 							removeRegion(nextRegion - 1, z);
+						}
 					}
 				}
 			}
@@ -98,7 +100,7 @@ public class WorldBuilder {
 	
 	private int fillRegion(int region, int x, int y, int z) {
 		int size = 1;
-		ArrayList<Point> open = new ArrayList<Point>();
+		ArrayList<Point> open = new ArrayList<>();
 		open.add(new Point(x,y,z));
 		regions[x][y][z] = region;
 		
@@ -106,13 +108,11 @@ public class WorldBuilder {
 			Point p = open.remove(0);
 
 			for (Point neighbor : p.neighbors8()){
-				if (neighbor.x < 0 || neighbor.y < 0 || neighbor.x >= width || neighbor.y >= height)
+				if (neighbor.x < 0 || neighbor.y < 0 || neighbor.x >= width || neighbor.y >= height || regions[neighbor.x][neighbor.y][neighbor.z] > 0
+						|| tiles[neighbor.x][neighbor.y][neighbor.z] == Tile.WALL) {
 					continue;
+				}
 				
-				if (regions[neighbor.x][neighbor.y][neighbor.z] > 0
-						|| tiles[neighbor.x][neighbor.y][neighbor.z] == Tile.WALL)
-					continue;
-
 				size++;
 				regions[neighbor.x][neighbor.y][neighbor.z] = region;
 				open.add(neighbor);
@@ -129,7 +129,7 @@ public class WorldBuilder {
 	}
 	
 	private void connectRegionsDown(int z){
-		List<Integer> connected = new ArrayList<Integer>();
+		List<Integer> connected = new ArrayList<>();
 		
 		for (int x = 0; x < width; x++){
 			for (int y = 0; y < height; y++){
@@ -158,7 +158,7 @@ public class WorldBuilder {
 	}
 
 	public List<Point> findRegionOverlaps(int z, int r1, int r2) {
-		ArrayList<Point> candidates = new ArrayList<Point>();
+		ArrayList<Point> candidates = new ArrayList<>();
 		
 		for (int x = 0; x < width; x++){
 			for (int y = 0; y < height; y++){

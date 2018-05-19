@@ -3,7 +3,6 @@ package game;
 import java.util.List;
 
 public class PlayerAi extends CreatureAi {
-
 	private List<String> messages;
 	private FieldOfView fov;
 	
@@ -20,9 +19,9 @@ public class PlayerAi extends CreatureAi {
 			creature.z = z;
 			
 			Item item = creature.item(creature.x, creature.y, creature.z);
-			if (item != null)
+			if (item != null) {
 				creature.notify("There's a " + creature.nameOf(item) + " here.");
-			
+			}
 		} else if (tile.isDiggable()) {
 			creature.dig(x, y, z);
 		}

@@ -1,6 +1,5 @@
 package game;
 
-
 public class ZombieAi extends CreatureAi {
 	private Creature player;
 	
@@ -10,12 +9,14 @@ public class ZombieAi extends CreatureAi {
 	}
 
 	public void onUpdate(){
-		if (Math.random() < 0.2)
+		if (Math.random() < 0.2) {
 			return;
+		}
 		
-		if (creature.canSee(player.x, player.y, player.z))
+		if (creature.canSee(player.x, player.y, player.z)) {
 			hunt(player);
-		else
+		} else {
 			wander();
+		}
 	}
 }

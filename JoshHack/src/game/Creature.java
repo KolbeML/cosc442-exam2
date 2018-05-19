@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Creature {
 	private World world;
 	
@@ -121,15 +120,17 @@ public class Creature {
 		this.food = maxFood / 3 * 2;
 		this.level = 1;
 		this.regenHpPer1000 = 10;
-		this.effects = new ArrayList<Effect>();
+		this.effects = new ArrayList<>();
 		this.maxMana = 5;
 		this.mana = maxMana;
 		this.regenManaPer1000 = 20;
 	}
 	
 	public void moveBy(int mx, int my, int mz){
-		if (mx==0 && my==0 && mz==0)
+		//no movement
+		if (mx==0 && my==0 && mz==0) {
 			return;
+		}
 		
 		Tile tile = world.tile(x+mx, y+my, z+mz);
 		
@@ -149,14 +150,21 @@ public class Creature {
 			}
 		}
 		
+		endMovement(mx, my, mz, tile);
+	}
+	public void endMovement(int mx, int my, int mz, Tile tile) {
 		Creature other = world.creature(x+mx, y+my, z+mz);
 		
 		modifyFood(-1);
 		
-		if (other == null)
-			ai.onEnter(x+mx, y+my, z+mz, tile);
-		else
+		actionDecision(mx, my, mz, tile, other);
+	}
+	public void actionDecision(int mx, int my, int mz, Tile tile, Creature other) {
+		if (other != null) {
 			meleeAttack(other);
+		} else {
+			ai.onEnter(x+mx, y+my, z+mz, tile);
+		}
 	}
 
 	public void meleeAttack(Creature other){
@@ -180,8 +188,10 @@ public class Creature {
 		amount = (int)(Math.random() * amount) + 1;
 		
 		Object[] params2 = new Object[params.length+1];
-		for (int i = 0; i < params.length; i++){
-			params2[i] = params[i];
+		try {
+			System.arraycopy(params, 0, params2, 0, params.length);
+		} catch (IndexOutOfBoundsException e) {
+			throw new ArrayIndexOutOfBoundsException(e.getMessage());
 		}
 		params2[params2.length - 1] = amount;
 		
@@ -189,8 +199,9 @@ public class Creature {
 		
 		other.modifyHp(-amount, "Killed by a " + name);
 		
-		if (other.hp < 1)
+		if (other.hp < 1) {
 			gainXp(other);
+		}
 	}
 	
 	public void gainXp(Creature other){
@@ -199,8 +210,9 @@ public class Creature {
 			+ other.defenseValue()
 			- level;
 		
-		if (amount > 0)
+		if (amount > 0) {
 			modifyXp(amount);
+		}
 	}
 
 	public void modifyHp(int amount, String causeOfDeath) { 
@@ -221,8 +233,9 @@ public class Creature {
 		corpse.modifyFoodValue(maxHp * 5);
 		world.addAtEmptySpace(corpse, x, y, z);
 		for (Item item : inventory.getItems()){
-			if (item != null)
+			if (item != null) {
 				drop(item);
+			}
 		}
 	}
 	
@@ -241,7 +254,7 @@ public class Creature {
 	}
 	
 	private void updateEffects(){
-		List<Effect> done = new ArrayList<Effect>();
+		List<Effect> done = new ArrayList<>();
 		
 		for (Effect effect : effects){
 			effect.update(this);
@@ -295,8 +308,9 @@ public class Creature {
 	}
 	
 	public void doAction(Item item, String message, Object ... params){
-		if (hp < 1)
+		if (hp < 1) {
 			return;
+		}
 		
 		for (Creature other : getCreaturesWhoSeeMe()){
 			if (other == this){
@@ -309,17 +323,19 @@ public class Creature {
 	}
 	
 	private List<Creature> getCreaturesWhoSeeMe(){
-		List<Creature> others = new ArrayList<Creature>();
+		List<Creature> others = new ArrayList<>();
 		int r = 9;
 		for (int ox = -r; ox < r+1; ox++){
 			for (int oy = -r; oy < r+1; oy++){
-				if (ox*ox + oy*oy > r*r)
+				if (ox*ox + oy*oy > r*r) {
 					continue;
+				}
 				
 				Creature other = world.creature(x+ox, y+oy, z);
 				
-				if (other == null)
+				if (other == null) {
 					continue;
+				}
 				
 				others.add(other);
 			}
@@ -333,7 +349,7 @@ public class Creature {
 		
 		StringBuilder builder = new StringBuilder();
 		for (String word : words){
-			builder.append(" ");
+			builder.append(' ');
 			builder.append(word);
 		}
 		
@@ -341,8 +357,8 @@ public class Creature {
 	}
 	
 	public boolean canSee(int wx, int wy, int wz){
-		return (detectCreatures > 0 && world.creature(wx, wy, wz) != null
-				|| ai.canSee(wx, wy, wz));
+		return (detectCreatures > 0 && world.creature(wx, wy, wz) != null)
+				|| ai.canSee(wx, wy, wz);
 	}
 
 	public Tile realTile(int wx, int wy, int wz) {
@@ -350,17 +366,19 @@ public class Creature {
 	}
 	
 	public Tile tile(int wx, int wy, int wz) {
-		if (canSee(wx, wy, wz))
+		if (canSee(wx, wy, wz)) {
 			return world.tile(wx, wy, wz);
-		else
+		} else {
 			return ai.rememberedTile(wx, wy, wz);
+		}
 	}
 
 	public Creature creature(int wx, int wy, int wz) {
-		if (canSee(wx, wy, wz))
+		if (canSee(wx, wy, wz)) {
 			return world.creature(wx, wy, wz);
-		else
+		} else {
 			return null;
+		}
 	}
 	
 	public void pickup(){
@@ -413,8 +431,9 @@ public class Creature {
 	}
 	
 	private void consume(Item item){
-		if (item.foodValue() < 0)
+		if (item.foodValue() < 0) {
 			notify("Gross!");
+		}
 		
 		addEffect(item.quaffEffect());
 		
@@ -423,8 +442,9 @@ public class Creature {
 	}
 	
 	private void addEffect(Effect effect){
-		if (effect == null)
+		if (effect == null) {
 			return;
+		}
 		
 		effect.start(this);
 		effects.add(effect);
@@ -442,16 +462,19 @@ public class Creature {
 	}
 	
 	public void unequip(Item item){
-		if (item == null)
+		if (item == null) {
 			return;
+		}
 		
 		if (item == armor){
-			if (hp > 0)
+			if (hp > 0) {
 				doAction("remove a " + nameOf(item));
+			}
 			armor = null;
 		} else if (item == weapon) {
-			if (hp > 0) 
+			if (hp > 0) {
 				doAction("put away a " + nameOf(item));
+			}
 			weapon = null;
 		}
 	}
@@ -467,8 +490,9 @@ public class Creature {
 			}
 		}
 		
-		if (item.attackValue() == 0 && item.rangedAttackValue() == 0 && item.defenseValue() == 0)
+		if (item.attackValue() == 0 && item.rangedAttackValue() == 0 && item.defenseValue() == 0) {
 			return;
+		}
 		
 		if (item.attackValue() + item.rangedAttackValue() >= item.defenseValue()){
 			unequip(weapon);
@@ -482,10 +506,11 @@ public class Creature {
 	}
 	
 	public Item item(int wx, int wy, int wz) {
-		if (canSee(wx, wy, wz))
+		if (canSee(wx, wy, wz)) {
 			return world.item(wx, wy, wz);
-		else
+		} else {
 			return null;
+		}
 	}
 	
 	public String details() {
@@ -496,8 +521,9 @@ public class Creature {
 		Point end = new Point(x, y, 0);
 		
 		for (Point p : new Line(x, y, wx, wy)){
-			if (!realTile(p.x, p.y, z).isGround())
+			if (!realTile(p.x, p.y, z).isGround()) {
 				break;
+			}
 			end = p;
 		}
 		
@@ -506,15 +532,17 @@ public class Creature {
 		
 		Creature c = creature(wx, wy, wz);
 		
-		if (c != null)
-			throwAttack(item, c);				
-		else
+		if (c != null) {
+			throwAttack(item, c);
+		} else {
 			doAction("throw a %s", nameOf(item));
+		}
 		
-		if (item.quaffEffect() != null && c != null)
+		if (item.quaffEffect() != null && c != null) {
 			getRidOf(item);
-		else
+		} else {
 			putAt(item, wx, wy, wz);
+		}
 	}
 	
 	public void summon(Creature other) {

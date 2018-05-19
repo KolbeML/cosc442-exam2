@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import asciiPanel.AsciiPanel;
 
 public class StuffFactory {
@@ -22,7 +21,7 @@ public class StuffFactory {
 	}
 	
 	private void setUpPotionAppearances(){
-		potionColors = new HashMap<String, Color>();
+		potionColors = new HashMap<>();
 		potionColors.put("red potion", AsciiPanel.brightRed);
 		potionColors.put("yellow potion", AsciiPanel.brightYellow);
 		potionColors.put("green potion", AsciiPanel.brightGreen);
@@ -33,7 +32,7 @@ public class StuffFactory {
 		potionColors.put("grey potion", AsciiPanel.white);
 		potionColors.put("light potion", AsciiPanel.brightWhite);
 
-		potionAppearances = new ArrayList<String>(potionColors.keySet());
+		potionAppearances = new ArrayList<>(potionColors.keySet());
 		Collections.shuffle(potionAppearances);
 	}
 	
@@ -185,8 +184,9 @@ public class StuffFactory {
 		final Item item = new Item('!', potionColors.get(appearance), "health potion", appearance);
 		item.setQuaffEffect(new Effect(1){
 			public void start(Creature creature){
-				if (creature.hp() == creature.maxHp())
+				if (creature.hp() == creature.maxHp()) {
 					return;
+				}
 				
 				creature.modifyHp(15, "Killed by a health potion?");
 				creature.doAction(item, "look healthier");
@@ -202,8 +202,9 @@ public class StuffFactory {
 		final Item item = new Item('!', potionColors.get(appearance), "mana potion", appearance);
 		item.setQuaffEffect(new Effect(1){
 			public void start(Creature creature){
-				if (creature.mana() == creature.maxMana())
+				if (creature.mana() == creature.maxMana()) {
 					return;
+				}
 				
 				creature.modifyMana(10);
 				creature.doAction(item, "look restored");
@@ -304,10 +305,10 @@ public class StuffFactory {
 	
 	public Item randomPotion(int depth){
 		switch ((int)(Math.random() * 9)){
-		case 0: return newPotionOfHealth(depth);
-		case 1: return newPotionOfHealth(depth);
-		case 2: return newPotionOfMana(depth);
-		case 3: return newPotionOfMana(depth);
+		case 0: case 1:
+			return newPotionOfHealth(depth);
+		case 2: case 3:
+			return newPotionOfMana(depth);
 		case 4: return newPotionOfSlowHealth(depth);
 		case 5: return newPotionOfPoison(depth);
 		case 6: return newPotionOfWarrior(depth);
@@ -320,8 +321,9 @@ public class StuffFactory {
 		Item item = new Item('+', AsciiPanel.brightWhite, "white mage's spellbook", null);
 		item.addWrittenSpell("minor heal", 4, new Effect(1){
 			public void start(Creature creature){
-				if (creature.hp() == creature.maxHp())
+				if (creature.hp() == creature.maxHp()) {
 					return;
+				}
 				
 				creature.modifyHp(20, "Killed by a minor heal spell?");
 				creature.doAction("look healthier");
@@ -330,8 +332,9 @@ public class StuffFactory {
 		
 		item.addWrittenSpell("major heal", 8, new Effect(1){
 			public void start(Creature creature){
-				if (creature.hp() == creature.maxHp())
+				if (creature.hp() == creature.maxHp()) {
 					return;
+				}
 				
 				creature.modifyHp(50, "Killed by a major heal spell?");
 				creature.doAction("look healthier");
@@ -356,8 +359,9 @@ public class StuffFactory {
 			}
 			public void update(Creature creature){
 				super.update(creature);
-				if (Math.random() < 0.25)
+				if (Math.random() < 0.25) {
 					creature.modifyHp(1, "Killed by inner strength spell?");
+				}
 			}
 			public void end(Creature creature){
 				creature.modifyAttackValue(-2);
@@ -410,9 +414,10 @@ public class StuffFactory {
 					for (int oy = -1; oy < 2; oy++){
 						int nx = creature.x + ox;
 						int ny = creature.y + oy;
-						if (ox == 0 && oy == 0 
-								|| creature.creature(nx, ny, creature.z) != null)
+						if ((ox == 0 && oy == 0) 
+								|| creature.creature(nx, ny, creature.z) != null) {
 							continue;
+						}
 						
 						Creature bat = newBat(0);
 						
@@ -444,12 +449,10 @@ public class StuffFactory {
 		return item;
 	}
 	
-
 	public Item randomSpellBook(int depth){
 		switch ((int)(Math.random() * 2)){
 		case 0: return newWhiteMagesSpellbook(depth);
 		default: return newBlueMagesSpellbook(depth);
 		}
 	}
-	
 }

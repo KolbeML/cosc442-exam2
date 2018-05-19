@@ -4,7 +4,6 @@ import game.Creature;
 import game.Item;
 
 public class ReadScreen extends InventoryBasedScreen {
-
 	private int sx;
 	private int sy;
 	
@@ -28,5 +27,4 @@ public class ReadScreen extends InventoryBasedScreen {
 	protected Screen use(Item item) {
 		return new ReadSpellScreen(player, sx, sy, item);
 	}
-
 }

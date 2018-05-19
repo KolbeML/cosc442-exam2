@@ -4,7 +4,6 @@ import java.awt.event.KeyEvent;
 import asciiPanel.AsciiPanel;
 
 public class HelpScreen implements Screen {
-
 	@Override
 	public void displayOutput(AsciiPanel terminal) {
 		terminal.clear();

@@ -27,7 +27,7 @@ public class PlayScreen implements Screen {
 	public PlayScreen(){
 		screenWidth = 80;
 		screenHeight = 23;
-		messages = new ArrayList<String>();
+		messages = new ArrayList<>();
 		createWorld();
 		fov = new FieldOfView(world);
 		
@@ -95,21 +95,23 @@ public class PlayScreen implements Screen {
 		String stats = String.format(" %3d/%3d hp   %d/%d mana   %8s", player.hp(), player.maxHp(), player.mana(), player.maxMana(), hunger());
 		terminal.write(stats, 1, 23);
 		
-		if (subscreen != null)
+		if (subscreen != null) {
 			subscreen.displayOutput(terminal);
+		}
 	}
 	
 	private String hunger(){
-		if (player.food() < player.maxFood() * 0.10)
+		if (player.food() < player.maxFood() * 0.10) {
 			return "Starving";
-		else if (player.food() < player.maxFood() * 0.25)
+		} else if (player.food() < player.maxFood() * 0.25) {
 			return "Hungry";
-		else if (player.food() > player.maxFood() * 0.90)
+		} else if (player.food() > player.maxFood() * 0.90) {
 			return "Stuffed";
-		else if (player.food() > player.maxFood() * 0.75)
+		} else if (player.food() > player.maxFood() * 0.75) {
 			return "Full";
-		else
+		} else {
 			return "";
+		}
 	}
 
 	private void displayMessages(AsciiPanel terminal, List<String> messages) {
@@ -117,8 +119,9 @@ public class PlayScreen implements Screen {
 		for (int i = 0; i < messages.size(); i++){
 			terminal.writeCenter(messages.get(i), top + i);
 		}
-		if (subscreen == null)
+		if (subscreen == null) {
 			messages.clear();
+		}
 	}
 
 	private void displayTiles(AsciiPanel terminal, int left, int top) {
@@ -129,10 +132,11 @@ public class PlayScreen implements Screen {
 				int wx = x + left;
 				int wy = y + top;
 
-				if (player.canSee(wx, wy, player.z))
+				if (player.canSee(wx, wy, player.z)) {
 					terminal.write(world.glyph(wx, wy, player.z), x, y, world.color(wx, wy, player.z));
-				else
+				} else {
 					terminal.write(fov.tile(wx, wy, player.z).glyph(), x, y, Color.darkGray);
+				}
 			}
 		}
 	}
@@ -168,12 +172,13 @@ public class PlayScreen implements Screen {
 					player.x - getScrollX(), 
 					player.y - getScrollY()); break;
 			case KeyEvent.VK_F: 
-				if (player.weapon() == null || player.weapon().rangedAttackValue() == 0)
+				if (player.weapon() == null || player.weapon().rangedAttackValue() == 0) {
 					player.notify("You don't have a ranged weapon equiped.");
-				else
+				} else {
 					subscreen = new FireWeaponScreen(player,
 						player.x - getScrollX(), 
-						player.y - getScrollY()); break;
+						player.y - getScrollY());
+				} break;
 			case KeyEvent.VK_Q: subscreen = new QuaffScreen(player); break;
 			case KeyEvent.VK_R: subscreen = new ReadScreen(player,
 						player.x - getScrollX(), 
@@ -184,23 +189,27 @@ public class PlayScreen implements Screen {
 			case 'g':
 			case ',': player.pickup(); break;
 			case '<': 
-				if (userIsTryingToExit())
+				if (userIsTryingToExit()) {
 					return userExits();
-				else
-					player.moveBy( 0, 0, -1); break;
+				} else {
+					player.moveBy( 0, 0, -1);
+				} break;
 			case '>': player.moveBy( 0, 0, 1); break;
 			case '?': subscreen = new HelpScreen(); break;
 			}
 		}
 
-		if (player.level() > level)
+		if (player.level() > level) {
 			subscreen = new LevelUpScreen(player, player.level() - level);
+		}
 		
-		if (subscreen == null)
+		if (subscreen == null) {
 			world.update();
+		}
 		
-		if (player.hp() < 1)
+		if (player.hp() < 1) {
 			return new LoseScreen(player);
+		}
 		
 		return this;
 	}
@@ -211,8 +220,9 @@ public class PlayScreen implements Screen {
 	
 	private Screen userExits(){
 		for (Item item : player.inventory().getItems()){
-			if (item != null && item.name().equals("teddy bear"))
+			if (item != null && "teddy bear".equals(item.name())) {
 				return new WinScreen();
+			}
 		}
 		player.modifyHp(0, "Died while cowardly fleeing the caves.");
 		return new LoseScreen(player);

@@ -1,7 +1,6 @@
 package game;
 
 public class Spell {
-
 	private String name;
 	public String name() { return name; }
 

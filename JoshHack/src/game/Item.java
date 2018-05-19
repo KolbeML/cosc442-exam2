@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Item {
-
 	private char glyph;
 	public char glyph() { return glyph; }
 	
@@ -55,26 +54,31 @@ public class Item {
 		this.name = name;
 		this.appearance = appearance == null ? name : appearance;
 		this.thrownAttackValue = 1;
-		this.writtenSpells = new ArrayList<Spell>();
+		this.writtenSpells = new ArrayList<>();
 	}
 	
 	public String details() {
 		String details = "";
 		
-		if (attackValue != 0)
+		if (attackValue != 0) {
 			details += "  attack:" + attackValue;
+		}
 
-		if (thrownAttackValue != 1)
+		if (thrownAttackValue != 1) {
 			details += "  thrown:" + thrownAttackValue;
+		}
 		
-		if (rangedAttackValue > 0)
+		if (rangedAttackValue > 0) {
 			details += "  ranged:" + rangedAttackValue;
+		}
 		
-		if (defenseValue != 0)
+		if (defenseValue != 0) {
 			details += "  defense:" + defenseValue;
+		}
 
-		if (foodValue != 0)
+		if (foodValue != 0) {
 			details += "  food:" + foodValue;
+		}
 		
 		return details;
 	}

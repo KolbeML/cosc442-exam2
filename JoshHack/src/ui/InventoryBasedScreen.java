@@ -7,7 +7,6 @@ import game.Creature;
 import game.Item;
 
 public abstract class InventoryBasedScreen implements Screen {
-
 	protected Creature player;
 	private String letters;
 	
@@ -26,8 +25,9 @@ public abstract class InventoryBasedScreen implements Screen {
 		int y = 23 - lines.size();
 		int x = 4;
 
-		if (lines.size() > 0)
+		if (!lines.isEmpty()) {
 			terminal.clear(' ', x, y, 20, lines.size());
+		}
 		
 		for (String line : lines){
 			terminal.write(line, x, y++);
@@ -40,19 +40,21 @@ public abstract class InventoryBasedScreen implements Screen {
 	}
 	
 	private ArrayList<String> getList() {
-		ArrayList<String> lines = new ArrayList<String>();
+		ArrayList<String> lines = new ArrayList<>();
 		Item[] inventory = player.inventory().getItems();
 		
 		for (int i = 0; i < inventory.length; i++){
 			Item item = inventory[i];
 			
-			if (item == null || !isAcceptable(item))
+			if (item == null || !isAcceptable(item)) {
 				continue;
+			}
 			
 			String line = letters.charAt(i) + " - " + item.glyph() + " " + player.nameOf(item);
 			
-			if(item == player.weapon() || item == player.armor())
+			if(item == player.weapon() || item == player.armor()) {
 				line += " (equipped)";
+			}
 			
 			lines.add(line);
 		}

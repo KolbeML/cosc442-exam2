@@ -4,7 +4,6 @@ import game.Creature;
 import game.Item;
 
 public class DropScreen extends InventoryBasedScreen {
-
 	public DropScreen(Creature player) {
 		super(player);
 	}

@@ -1,7 +1,6 @@
 package game;
 
 public class Inventory {
-
 	private Item[] items;
 	public Item[] getItems() { return items; }
 	public Item get(int i) { return items[i]; }
@@ -31,16 +30,18 @@ public class Inventory {
 	public boolean isFull(){
 		int size = 0;
 		for (int i = 0; i < items.length; i++){
-			if (items[i] != null)
+			if (items[i] != null) {
 				size++;
+			}
 		}
 		return size == items.length;
 	}
 	
 	public boolean contains(Item item) {
 		for (Item i : items){
-			if (i == item)
+			if (i == item) {
 				return true;
+			}
 		}
 		return false;
 	}

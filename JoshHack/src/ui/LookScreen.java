@@ -5,7 +5,6 @@ import game.Item;
 import game.Tile;
 
 public class LookScreen extends TargetBasedScreen {
-
 	public LookScreen(Creature player, String caption, int sx, int sy) {
 		super(player, caption, sx, sy);
 	}

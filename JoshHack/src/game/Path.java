@@ -3,7 +3,6 @@ package game;
 import java.util.List;
 
 public class Path {
-
 	private static PathFinder pf = new PathFinder();
 	
 	private List<Point> points;

@@ -4,7 +4,6 @@ import game.Creature;
 import game.Item;
 
 public class QuaffScreen extends InventoryBasedScreen {
-
 	public QuaffScreen(Creature player) {
 		super(player);
 	}
@@ -24,5 +23,4 @@ public class QuaffScreen extends InventoryBasedScreen {
 		player.quaff(item);
 		return null;
 	}
-
 }

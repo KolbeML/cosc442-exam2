@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LevelUpController {
-
 	private static LevelUpOption[] options = new LevelUpOption[] {
 			new LevelUpOption("Increased hit points") {
 				public void invoke(Creature creature) {
@@ -50,7 +49,7 @@ public class LevelUpController {
 	}
 
 	public List<String> getLevelUpOptions() {
-		List<String> names = new ArrayList<String>();
+		List<String> names = new ArrayList<>();
 		for (LevelUpOption option : options) {
 			names.add(option.name());
 		}
@@ -59,8 +58,9 @@ public class LevelUpController {
 
 	public LevelUpOption getLevelUpOption(String name) {
 		for (LevelUpOption option : options) {
-			if (option.name().equals(name))
+			if (option.name().equals(name)) {
 				return option;
+			}
 		}
 		return null;
 	}

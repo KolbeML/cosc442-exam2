@@ -34,19 +34,18 @@ public class FieldOfView {
 		
 		for (int x = -r; x < r; x++){
 			for (int y = -r; y < r; y++){
-				if (x*x + y*y > r*r)
+				if (x*x + y*y > r*r || wx + x < 0 || wx + x >= world.width() || wy + y < 0 || wy + y >= world.height()) {
 					continue;
-				
-				if (wx + x < 0 || wx + x >= world.width() || wy + y < 0 || wy + y >= world.height())
-					continue;
+				}
 				
 				for (Point p : new Line(wx, wy, wx + x, wy + y)){
 					Tile tile = world.tile(p.x, p.y, wz);
 					visible[p.x][p.y] = true;
 					tiles[p.x][p.y][wz] = tile; 
 					
-					if (!tile.isGround())
+					if (!tile.isGround()) {
 						break;
+					}
 				}
 			}
 		}
