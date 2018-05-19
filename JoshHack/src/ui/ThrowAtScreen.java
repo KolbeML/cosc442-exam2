@@ -8,7 +8,6 @@ import game.Item;
 import game.Line;
 import game.Point;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ThrowAtScreen.
  */
@@ -30,9 +29,6 @@ public class ThrowAtScreen extends TargetBasedScreen {
 		this.item = item;
 	}
 
-	/* (non-Javadoc)
-	 * @see ui.TargetBasedScreen#isAcceptable(int, int)
-	 */
 	public boolean isAcceptable(int x, int y) {
 		if (!player.canSee(x, y, player.z)) {
 			return false;
@@ -47,8 +43,8 @@ public class ThrowAtScreen extends TargetBasedScreen {
 		return true;
 	}
 
-	/* (non-Javadoc)
-	 * @see ui.TargetBasedScreen#selectWorldCoordinate(int, int, int, int)
+	/**
+	 * Throws item to given coordinate.
 	 */
 	public void selectWorldCoordinate(int x, int y, int screenX, int screenY){
 		player.throwItem(item, x, y, player.z);

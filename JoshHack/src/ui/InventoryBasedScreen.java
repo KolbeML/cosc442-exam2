@@ -9,7 +9,6 @@ import asciiPanel.AsciiPanel;
 import game.Creature;
 import game.Item;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class InventoryBasedScreen.
  */
@@ -54,8 +53,8 @@ public abstract class InventoryBasedScreen implements Screen {
 		this.letters = "abcdefghijklmnopqrstuvwxyz";
 	}
 	
-	/* (non-Javadoc)
-	 * @see ui.Screen#displayOutput(asciiPanel.AsciiPanel)
+	/**
+	 * Prints prompt when user commits an action.
 	 */
 	public void displayOutput(AsciiPanel terminal) {
 		ArrayList<String> lines = getList();
@@ -78,7 +77,7 @@ public abstract class InventoryBasedScreen implements Screen {
 	}
 	
 	/**
-	 * Gets the list.
+	 * Gets the inventory list.
 	 *
 	 * @return the list
 	 */
@@ -104,8 +103,8 @@ public abstract class InventoryBasedScreen implements Screen {
 		return lines;
 	}
 
-	/* (non-Javadoc)
-	 * @see ui.Screen#respondToUserInput(java.awt.event.KeyEvent)
+	/**
+	 * Determines action on user input.
 	 */
 	public Screen respondToUserInput(KeyEvent key) {
 		char c = key.getKeyChar();

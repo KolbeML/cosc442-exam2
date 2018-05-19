@@ -11,7 +11,6 @@ import game.Creature;
 import game.Item;
 import game.Spell;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ReadSpellScreen.
  */
@@ -47,10 +46,7 @@ public class ReadSpellScreen implements Screen {
 		this.sx = sx;
 		this.sy = sy;
 	}
-	
-	/* (non-Javadoc)
-	 * @see ui.Screen#displayOutput(asciiPanel.AsciiPanel)
-	 */
+
 	public void displayOutput(AsciiPanel terminal) {
 		ArrayList<String> lines = getList();
 		
@@ -72,7 +68,7 @@ public class ReadSpellScreen implements Screen {
 	}
 	
 	/**
-	 * Gets the list.
+	 * Gets the spell list.
 	 *
 	 * @return the list
 	 */
@@ -89,8 +85,8 @@ public class ReadSpellScreen implements Screen {
 		return lines;
 	}
 
-	/* (non-Javadoc)
-	 * @see ui.Screen#respondToUserInput(java.awt.event.KeyEvent)
+	/**
+	 * Handles user input.
 	 */
 	public Screen respondToUserInput(KeyEvent key) {
 		char c = key.getKeyChar();
@@ -109,7 +105,7 @@ public class ReadSpellScreen implements Screen {
 	}
 
 	/**
-	 * Use.
+	 * Use the given spell.
 	 *
 	 * @param spell the spell
 	 * @return the screen

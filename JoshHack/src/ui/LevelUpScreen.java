@@ -10,7 +10,6 @@ import asciiPanel.AsciiPanel;
 import game.Creature;
 import game.LevelUpController;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class LevelUpScreen.
  */
@@ -37,8 +36,8 @@ public class LevelUpScreen implements Screen {
 		this.picks = picks;
 	}
 	
-	/* (non-Javadoc)
-	 * @see ui.Screen#displayOutput(asciiPanel.AsciiPanel)
+	/**
+	 * Displays text on levelup
 	 */
 	@Override
 	public void displayOutput(AsciiPanel terminal) {
@@ -54,8 +53,8 @@ public class LevelUpScreen implements Screen {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see ui.Screen#respondToUserInput(java.awt.event.KeyEvent)
+	/**
+	 * Handles user input
 	 */
 	@Override
 	public Screen respondToUserInput(KeyEvent key) {

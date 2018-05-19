@@ -6,7 +6,6 @@ package ui;
 import game.Creature;
 import game.Item;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ExamineScreen.
  */
@@ -21,24 +20,24 @@ public class ExamineScreen extends InventoryBasedScreen {
 		super(player);
 	}
 
-	/* (non-Javadoc)
-	 * @see ui.InventoryBasedScreen#getVerb()
+	/**
+	 * Returns screen type
 	 */
 	@Override
 	protected String getVerb() {
 		return "examine";
 	}
 
-	/* (non-Javadoc)
-	 * @see ui.InventoryBasedScreen#isAcceptable(game.Item)
+	/**
+	 * Always acceptable!
 	 */
 	@Override
 	protected boolean isAcceptable(Item item) {
 		return true;
 	}
 
-	/* (non-Javadoc)
-	 * @see ui.InventoryBasedScreen#use(game.Item)
+	/**
+	 * Returns item details in a full sentence.
 	 */
 	@Override
 	protected Screen use(Item item) {

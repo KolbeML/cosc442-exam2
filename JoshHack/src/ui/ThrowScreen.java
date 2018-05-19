@@ -6,7 +6,6 @@ package ui;
 import game.Creature;
 import game.Item;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ThrowScreen.
  */
@@ -31,25 +30,16 @@ public class ThrowScreen extends InventoryBasedScreen {
 		this.sy = sy;
 	}
 
-	/* (non-Javadoc)
-	 * @see ui.InventoryBasedScreen#getVerb()
-	 */
 	@Override
 	protected String getVerb() {
 		return "throw";
 	}
 
-	/* (non-Javadoc)
-	 * @see ui.InventoryBasedScreen#isAcceptable(game.Item)
-	 */
 	@Override
 	protected boolean isAcceptable(Item item) {
 		return true;
 	}
 
-	/* (non-Javadoc)
-	 * @see ui.InventoryBasedScreen#use(game.Item)
-	 */
 	@Override
 	protected Screen use(Item item) {
 		return new ThrowAtScreen(player, sx, sy, item);

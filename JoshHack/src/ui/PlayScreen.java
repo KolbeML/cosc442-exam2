@@ -18,7 +18,6 @@ import game.Tile;
 import game.World;
 import game.WorldBuilder;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class PlayScreen.
  */
@@ -120,19 +119,19 @@ public class PlayScreen implements Screen {
 	/**
 	 * Gets the scroll X.
 	 *
-	 * @return the scroll X
+	 * @return the scroll width.
 	 */
 	public int getScrollX() { return Math.max(0, Math.min(player.x - screenWidth / 2, world.width() - screenWidth)); }
 	
 	/**
-	 * Gets the scroll Y.
+	 * Gets the scroll height.
 	 *
 	 * @return the scroll Y
 	 */
 	public int getScrollY() { return Math.max(0, Math.min(player.y - screenHeight / 2, world.height() - screenHeight)); }
 	
-	/* (non-Javadoc)
-	 * @see ui.Screen#displayOutput(asciiPanel.AsciiPanel)
+	/**
+	 * Prints output
 	 */
 	@Override
 	public void displayOutput(AsciiPanel terminal) {
@@ -151,7 +150,7 @@ public class PlayScreen implements Screen {
 	}
 	
 	/**
-	 * Hunger.
+	 * Hunger level.
 	 *
 	 * @return the string
 	 */
@@ -209,8 +208,8 @@ public class PlayScreen implements Screen {
 		}
 	}
 	
-	/* (non-Javadoc)
-	 * @see ui.Screen#respondToUserInput(java.awt.event.KeyEvent)
+	/**
+	 * Handles user input.
 	 */
 	@Override
 	public Screen respondToUserInput(KeyEvent key) {

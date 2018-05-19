@@ -6,7 +6,6 @@ package ui;
 import game.Creature;
 import game.Item;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class DropScreen.
  */
@@ -21,24 +20,24 @@ public class DropScreen extends InventoryBasedScreen {
 		super(player);
 	}
 
-	/* (non-Javadoc)
-	 * @see ui.InventoryBasedScreen#getVerb()
+	/**
+	 * Tells game to drop
 	 */
 	@Override
 	protected String getVerb() { 
 		return "drop"; 
 	}
 
-	/* (non-Javadoc)
-	 * @see ui.InventoryBasedScreen#isAcceptable(game.Item)
+	/**
+	 * Always returns acceptable
 	 */
 	@Override
 	protected boolean isAcceptable(Item item) { 
 		return true; 
 	}
 	
-	/* (non-Javadoc)
-	 * @see ui.InventoryBasedScreen#use(game.Item)
+	/**
+	 * Drops item
 	 */
 	@Override
 	protected Screen use(Item item) { 

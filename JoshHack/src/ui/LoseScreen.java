@@ -8,7 +8,6 @@ import java.awt.event.KeyEvent;
 import asciiPanel.AsciiPanel;
 import game.Creature;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class LoseScreen.
  */
@@ -26,8 +25,8 @@ public class LoseScreen implements Screen {
 		this.player = player;
 	}
 	
-	/* (non-Javadoc)
-	 * @see ui.Screen#displayOutput(asciiPanel.AsciiPanel)
+	/**
+	 * Prints appropriate message upon player death.
 	 */
 	@Override
 	public void displayOutput(AsciiPanel terminal) {
@@ -36,8 +35,8 @@ public class LoseScreen implements Screen {
 		terminal.writeCenter("-- press [enter] to restart --", 22);
 	}
 
-	/* (non-Javadoc)
-	 * @see ui.Screen#respondToUserInput(java.awt.event.KeyEvent)
+	/**
+	 * Handles user input.
 	 */
 	@Override
 	public Screen respondToUserInput(KeyEvent key) {

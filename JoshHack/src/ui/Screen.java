@@ -7,7 +7,6 @@ import java.awt.event.KeyEvent;
 
 import asciiPanel.AsciiPanel;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface Screen.
  */

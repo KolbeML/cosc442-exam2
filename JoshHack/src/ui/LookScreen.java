@@ -7,7 +7,6 @@ import game.Creature;
 import game.Item;
 import game.Tile;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class LookScreen.
  */
@@ -25,9 +24,6 @@ public class LookScreen extends TargetBasedScreen {
 		super(player, caption, sx, sy);
 	}
 
-	/* (non-Javadoc)
-	 * @see ui.TargetBasedScreen#enterWorldCoordinate(int, int, int, int)
-	 */
 	public void enterWorldCoordinate(int x, int y, int screenX, int screenY) {
 		Creature creature = player.creature(x, y, player.z);
 		if (creature != null){

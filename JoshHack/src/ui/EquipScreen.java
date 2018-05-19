@@ -6,7 +6,6 @@ package ui;
 import game.Creature;
 import game.Item;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class EquipScreen.
  */
@@ -21,22 +20,22 @@ public class EquipScreen extends InventoryBasedScreen {
 		super(player);
 	}
 
-	/* (non-Javadoc)
-	 * @see ui.InventoryBasedScreen#getVerb()
+	/**
+	 * Returns options
 	 */
 	protected String getVerb() {
 		return "wear or wield";
 	}
 
-	/* (non-Javadoc)
-	 * @see ui.InventoryBasedScreen#isAcceptable(game.Item)
+	/**
+	 * Determines if item has attack or defense value
 	 */
 	protected boolean isAcceptable(Item item) {
 		return item.attackValue() > 0 || item.defenseValue() > 0;
 	}
 
-	/* (non-Javadoc)
-	 * @see ui.InventoryBasedScreen#use(game.Item)
+	/**
+	 * Uses item
 	 */
 	protected Screen use(Item item) {
 		player.equip(item);

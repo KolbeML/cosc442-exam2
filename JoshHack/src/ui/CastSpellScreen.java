@@ -6,7 +6,6 @@ package ui;
 import game.Creature;
 import game.Spell;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class CastSpellScreen.
  */
@@ -29,8 +28,8 @@ public class CastSpellScreen extends TargetBasedScreen {
 		this.spell = spell;
 	}
 	
-	/* (non-Javadoc)
-	 * @see ui.TargetBasedScreen#selectWorldCoordinate(int, int, int, int)
+	/**
+	 * Casts spell on given location
 	 */
 	public void selectWorldCoordinate(int x, int y, int screenX, int screenY){
 		player.castSpell(spell, x, y);
