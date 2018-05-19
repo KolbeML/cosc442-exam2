@@ -10,11 +10,12 @@ import game.Item;
  * The Class ExamineScreen.
  */
 public class ExamineScreen extends InventoryBasedScreen {
-	
+
 	/**
 	 * Instantiates a new examine screen.
 	 *
-	 * @param player the player
+	 * @param player
+	 *            the player
 	 */
 	public ExamineScreen(Creature player) {
 		super(player);

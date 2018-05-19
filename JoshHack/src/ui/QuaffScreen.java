@@ -10,11 +10,12 @@ import game.Item;
  * The Class QuaffScreen.
  */
 public class QuaffScreen extends InventoryBasedScreen {
-	
+
 	/**
 	 * Instantiates a new quaff screen.
 	 *
-	 * @param player the player
+	 * @param player
+	 *            the player
 	 */
 	public QuaffScreen(Creature player) {
 		super(player);

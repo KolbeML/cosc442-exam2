@@ -8,120 +8,132 @@ import java.util.HashMap;
  * The Class PathFinder.
  */
 public class PathFinder {
-    
-    /** The open. */
-    private ArrayList<Point> open;
-    
-    /** The closed. */
-    private ArrayList<Point> closed;
-    
-    /** The parents. */
-    private HashMap<Point, Point> parents;
-	
-	/** The total cost. */
-	private HashMap<Point,Integer> totalCost;
-    
-    /**
-     * Instantiates a new path finder.
-     */
-    public PathFinder() {
-    	this.open = new ArrayList<>();
-        this.closed = new ArrayList<>();
-        this.parents = new HashMap<>();
-        this.totalCost = new HashMap<>();
-    }
-    
-    /**
-     * Heuristic cost of path between given points.
-     *
-     * @param from the initial point
-     * @param to the destination point
-     * @return the int
-     */
-    private int heuristicCost(Point from, Point to) {
-        return Math.max(Math.abs(from.x - to.x), Math.abs(from.y - to.y));
-    }
 
-    /**
-     * Cost to get to a given point.
-     *
-     * @param from the from
-     * @return the int
-     */
-    private int costToGetTo(Point from) {
-        return parents.get(from) == null ? 0 : (1 + costToGetTo(parents.get(from)));
-    }
-    
-    /**
-     * Total cost to travel between two given points.
-     *
-     * @param from the initial point
-     * @param to the destination point
-     * @return the int
-     */
-    private int totalCost(Point from, Point to) {
-        if (totalCost.containsKey(from)) {
+	/** The open. */
+	private ArrayList<Point> open;
+
+	/** The closed. */
+	private ArrayList<Point> closed;
+
+	/** The parents. */
+	private HashMap<Point, Point> parents;
+
+	/** The total cost. */
+	private HashMap<Point, Integer> totalCost;
+
+	/**
+	 * Instantiates a new path finder.
+	 */
+	public PathFinder() {
+		this.open = new ArrayList<>();
+		this.closed = new ArrayList<>();
+		this.parents = new HashMap<>();
+		this.totalCost = new HashMap<>();
+	}
+
+	/**
+	 * Heuristic cost of path between given points.
+	 *
+	 * @param from
+	 *            the initial point
+	 * @param to
+	 *            the destination point
+	 * @return the int
+	 */
+	private int heuristicCost(Point from, Point to) {
+		return Math.max(Math.abs(from.x - to.x), Math.abs(from.y - to.y));
+	}
+
+	/**
+	 * Cost to get to a given point.
+	 *
+	 * @param from
+	 *            the from
+	 * @return the int
+	 */
+	private int costToGetTo(Point from) {
+		return parents.get(from) == null ? 0 : (1 + costToGetTo(parents.get(from)));
+	}
+
+	/**
+	 * Total cost to travel between two given points.
+	 *
+	 * @param from
+	 *            the initial point
+	 * @param to
+	 *            the destination point
+	 * @return the int
+	 */
+	private int totalCost(Point from, Point to) {
+		if (totalCost.containsKey(from)) {
 			return totalCost.get(from);
 		}
-        
-        int cost = costToGetTo(from) + heuristicCost(from, to);
-        totalCost.put(from, cost);
-        return cost;
-    }
 
-    /**
-     * Re parent.
-     *
-     * @param child the child
-     * @param parent the parent
-     */
-    private void reParent(Point child, Point parent){
-        parents.put(child, parent);
-        totalCost.remove(child);
-    }
+		int cost = costToGetTo(from) + heuristicCost(from, to);
+		totalCost.put(from, cost);
+		return cost;
+	}
 
-    /**
-     * Find path.
-     *
-     * @param creature the creature
-     * @param start the start
-     * @param end the end
-     * @param maxTries the max tries
-     * @return the array list
-     */
-    public ArrayList<Point> findPath(Creature creature, Point start, Point end, int maxTries) {
-        open.clear();
-        closed.clear();
-        parents.clear();
-        totalCost.clear();
-    	
-        open.add(start);
-        
-        for (int tries = 0; tries < maxTries && !open.isEmpty(); tries++){
-            Point closest = getClosestPoint(end);
-            
-            open.remove(closest);
-            closed.add(closest);
+	/**
+	 * Re parent.
+	 *
+	 * @param child
+	 *            the child
+	 * @param parent
+	 *            the parent
+	 */
+	private void reParent(Point child, Point parent) {
+		parents.put(child, parent);
+		totalCost.remove(child);
+	}
 
-            if (closest.equals(end)) {
+	/**
+	 * Find path.
+	 *
+	 * @param creature
+	 *            the creature
+	 * @param start
+	 *            the start
+	 * @param end
+	 *            the end
+	 * @param maxTries
+	 *            the max tries
+	 * @return the array list
+	 */
+	public ArrayList<Point> findPath(Creature creature, Point start, Point end, int maxTries) {
+		open.clear();
+		closed.clear();
+		parents.clear();
+		totalCost.clear();
+
+		open.add(start);
+
+		for (int tries = 0; tries < maxTries && !open.isEmpty(); tries++) {
+			Point closest = getClosestPoint(end);
+
+			open.remove(closest);
+			closed.add(closest);
+
+			if (closest.equals(end)) {
 				return createPath(start, closest);
 			} else {
 				checkNeighbors(creature, end, closest);
 			}
-        }
-        return null;
-    }
+		}
+		return null;
+	}
 
 	/**
 	 * Gets the closest point.
 	 *
-	 * @param end the end
+	 * @param end
+	 *            the end
 	 * @return the closest point
 	 */
 	private Point getClosestPoint(Point end) {
 		Point closest = open.get(0);
-		for (Point other : open){
-		    if (totalCost(other, end) < totalCost(closest, end)) {
+		for (Point other : open) {
+			if (totalCost(other, end) < totalCost(closest, end)) {
 				closest = other;
 			}
 		}
@@ -131,19 +143,21 @@ public class PathFinder {
 	/**
 	 * Check neighbors.
 	 *
-	 * @param creature the creature
-	 * @param end the end
-	 * @param closest the closest
+	 * @param creature
+	 *            the creature
+	 * @param end
+	 *            the end
+	 * @param closest
+	 *            the closest
 	 */
 	private void checkNeighbors(Creature creature, Point end, Point closest) {
 		for (Point neighbor : closest.neighbors8()) {
-		    if (closed.contains(neighbor)
-		    		|| (!creature.canEnter(neighbor.x, neighbor.y, creature.z)
-		    		&& !neighbor.equals(end))) {
+			if (closed.contains(neighbor)
+					|| (!creature.canEnter(neighbor.x, neighbor.y, creature.z) && !neighbor.equals(end))) {
 				continue;
 			}
-			
-		    if (open.contains(neighbor)) {
+
+			if (open.contains(neighbor)) {
 				reParentNeighborIfNecessary(closest, neighbor);
 			} else {
 				reParentNeighbor(closest, neighbor);
@@ -154,8 +168,10 @@ public class PathFinder {
 	/**
 	 * Re parent neighbor.
 	 *
-	 * @param closest the closest
-	 * @param neighbor the neighbor
+	 * @param closest
+	 *            the closest
+	 * @param neighbor
+	 *            the neighbor
 	 */
 	private void reParentNeighbor(Point closest, Point neighbor) {
 		reParent(neighbor, closest);
@@ -165,15 +181,17 @@ public class PathFinder {
 	/**
 	 * Re parent neighbor if necessary.
 	 *
-	 * @param closest the closest
-	 * @param neighbor the neighbor
+	 * @param closest
+	 *            the closest
+	 * @param neighbor
+	 *            the neighbor
 	 */
 	private void reParentNeighborIfNecessary(Point closest, Point neighbor) {
 		Point originalParent = parents.get(neighbor);
 		double currentCost = costToGetTo(neighbor);
 		reParent(neighbor, closest);
 		double reparentCost = costToGetTo(neighbor);
-		
+
 		if (reparentCost < currentCost) {
 			open.remove(neighbor);
 		} else {
@@ -184,16 +202,18 @@ public class PathFinder {
 	/**
 	 * Creates the path.
 	 *
-	 * @param start the initial point
-     * @param end the destination point
+	 * @param start
+	 *            the initial point
+	 * @param end
+	 *            the destination point
 	 * @return the array list
 	 */
 	private ArrayList<Point> createPath(Point start, Point end) {
 		ArrayList<Point> path = new ArrayList<>();
 
 		while (!end.equals(start)) {
-		    path.add(end);
-		    end = parents.get(end);
+			path.add(end);
+			end = parents.get(end);
 		}
 
 		Collections.reverse(path);

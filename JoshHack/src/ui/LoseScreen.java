@@ -12,19 +12,20 @@ import game.Creature;
  * The Class LoseScreen.
  */
 public class LoseScreen implements Screen {
-	
+
 	/** The player. */
 	private Creature player;
-	
+
 	/**
 	 * Instantiates a new lose screen.
 	 *
-	 * @param player the player
+	 * @param player
+	 *            the player
 	 */
-	public LoseScreen(Creature player){
+	public LoseScreen(Creature player) {
 		this.player = player;
 	}
-	
+
 	/**
 	 * Prints appropriate message upon player death.
 	 */

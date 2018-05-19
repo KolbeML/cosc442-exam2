@@ -10,11 +10,12 @@ import game.Item;
  * The Class DropScreen.
  */
 public class DropScreen extends InventoryBasedScreen {
-	
+
 	/**
 	 * Instantiates a new drop screen.
 	 *
-	 * @param player the player
+	 * @param player
+	 *            the player
 	 */
 	public DropScreen(Creature player) {
 		super(player);
@@ -24,24 +25,24 @@ public class DropScreen extends InventoryBasedScreen {
 	 * Tells game to drop
 	 */
 	@Override
-	protected String getVerb() { 
-		return "drop"; 
+	protected String getVerb() {
+		return "drop";
 	}
 
 	/**
 	 * Always returns acceptable
 	 */
 	@Override
-	protected boolean isAcceptable(Item item) { 
-		return true; 
+	protected boolean isAcceptable(Item item) {
+		return true;
 	}
-	
+
 	/**
 	 * Drops item
 	 */
 	@Override
-	protected Screen use(Item item) { 
-		player.drop(item); 
+	protected Screen use(Item item) {
+		player.drop(item);
 		return null;
 	}
 }

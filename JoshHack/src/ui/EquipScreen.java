@@ -10,11 +10,12 @@ import game.Item;
  * The Class EquipScreen.
  */
 public class EquipScreen extends InventoryBasedScreen {
-	
+
 	/**
 	 * Instantiates a new equip screen.
 	 *
-	 * @param player the player
+	 * @param player
+	 *            the player
 	 */
 	public EquipScreen(Creature player) {
 		super(player);

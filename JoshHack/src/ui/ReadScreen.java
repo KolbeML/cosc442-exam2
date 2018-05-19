@@ -10,19 +10,22 @@ import game.Item;
  * The Class ReadScreen.
  */
 public class ReadScreen extends InventoryBasedScreen {
-	
+
 	/** The screen width. */
 	private int sx;
-	
+
 	/** The screen height. */
 	private int sy;
-	
+
 	/**
 	 * Instantiates a new read screen.
 	 *
-	 * @param player the player
-	 * @param sx the sx
-	 * @param sy the sy
+	 * @param player
+	 *            the player
+	 * @param sx
+	 *            the sx
+	 * @param sy
+	 *            the sy
 	 */
 	public ReadScreen(Creature player, int sx, int sy) {
 		super(player);
